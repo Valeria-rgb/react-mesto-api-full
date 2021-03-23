@@ -1,4 +1,5 @@
 const UserModel = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 const getUsers = (req, res) => {
   UserModel.find({})
@@ -28,9 +29,15 @@ const getProfile = (req, res) => {
     });
 };
 
-const createProfile = (req, res) => {
-  const { name, about, avatar } = req.body;
-  UserModel.create({ name, about, avatar })
+const createUser = (req, res) => {
+  bcrypt.hash(req.body.password, 10)
+    .then(hash => UserModel.create({
+      email: req.body.email,
+      password: hash,
+      avatar: req.body.avatar,
+      about: req.body.about,
+      name: req.body.name
+    }))
     .then((user) => {
       res.status(200).send(user);
     })
@@ -42,6 +49,7 @@ const createProfile = (req, res) => {
       }
     });
 };
+
 
 const updateProfile = (req, res) => {
   const { _id } = req.user;
@@ -96,5 +104,5 @@ const updateAvatar = (req, res) => {
 };
 
 module.exports = {
-  getUsers, getProfile, updateProfile, updateAvatar, createProfile,
+  getUsers, getProfile, updateProfile, updateAvatar, createUser,
 };
