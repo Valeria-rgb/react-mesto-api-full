@@ -1,5 +1,5 @@
 {
-  "name": "express-mesto",
+  "name": "mesto-api",
   "version": "1.0.0",
   "description": "web-development student project",
   "main": "index.js",
@@ -13,6 +13,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cli": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

@@ -6,10 +6,13 @@ const getCards = (req, res) => {
     .then((cards) => res.status(200).send(cards))
     .catch(() => res.status(500).send({ message: 'Ошибка сервера!' }));
 };
+
 const postCard = (req, res) => {
-  const { name, link } = req.body;
-  const { _id } = req.user;
-  CardModel.create({ name, link, owner: _id })
+  CardModel.create({
+    name: req.body.name,
+    link: req.body.link,
+    owner: req.user._id
+  })
     .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -47,10 +50,9 @@ const deleteCard = (req, res) => {
 
 const putLike = (req, res) => {
   const { cardId } = req.params;
-  const { _id } = req.user;
   CardModel.findByIdAndUpdate(cardId, {
     $addToSet: {
-      likes: _id,
+      likes: req.user._id,
     },
   }, {
     new: true,
@@ -77,10 +79,9 @@ const putLike = (req, res) => {
 
 const deleteLike = (req, res) => {
   const { cardId } = req.params;
-  const { _id } = req.user;
   CardModel.findByIdAndUpdate(cardId, {
     $pull: {
-      likes: _id,
+      likes: req.user._id,
     },
   }, {
     new: true,

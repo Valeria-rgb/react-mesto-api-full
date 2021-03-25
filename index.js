@@ -19,16 +19,18 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  req.user = {
-    _id: '603a0f1d7fa2f144d5c1a810',
-  };
-  next();
-});
-app.use('/', usersRouter);
-app.use('/', cardsRouter);
+// app.use((req, res, next) => {
+//   req.user = {
+//     _id: '603a0f1d7fa2f144d5c1a810',
+//   };
+//   next();
+// });
+
 app.post('/signin', login);
 app.post('/signup', createUser);
+
+app.use('/', usersRouter);
+app.use('/', cardsRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

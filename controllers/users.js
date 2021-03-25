@@ -8,6 +8,29 @@ const getUsers = (req, res) => {
     .catch(() => res.status(500).send({ message: 'Ошибка сервера!' }));
 };
 
+
+const getMyInfo = (req, res) => {
+  const userId = req.user._id;
+  UserModel.findById(userId)
+    .orFail(() => {
+      const err = new Error('Профайл не найден!');
+      err.statusCode = 404;
+      throw err;
+    })
+    .then((user) => {
+      res.status(200).send({ data: user });
+    })
+    .catch((err) => {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Переданы некорректные данные!' });
+      } else if (err.statusCode === 404) {
+        res.status(404).send({ message: 'Пользователь с данным id не найден' });
+      } else {
+        res.status(500).send({ message: 'Ошибка сервера!' });
+      }
+    });
+};
+
 const getProfile = (req, res) => {
   const { userId } = req.params;
   UserModel.findById(userId)
@@ -31,25 +54,23 @@ const getProfile = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => UserModel.create({
-      email: req.body.email,
-      password: hash,
-      avatar: req.body.avatar,
-      about: req.body.about,
-      name: req.body.name
+  const { email, password, name, about, avatar} = req.body;
+  bcrypt.hash(password, 10)
+  .then(hash => UserModel.create({
+        email,
+        password: hash,
+        name,
+        about,
+        avatar
+      }))
+    .then((user) => res.status(200).send({
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+      email: user.email,
     }))
-    .then((user) => {
-      res.status(200).send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Переданы некорректные данные!' });
-      } else {
-        res.status(500).send({ message: 'Ошибка сервера!' });
-      }
-    });
-};
+    .catch((err) => res.status(400).send(err))
+  };
 
 
 const updateProfile = (req, res) => {
@@ -104,11 +125,10 @@ const updateAvatar = (req, res) => {
     });
 };
 
-
 const login = (req, res) => {
   const { email, password } = req.body;
    return UserModel.findUserByCredentials(email, password)
-    .then((user) => {
+     .then((user) => {
       const { NODE_ENV, JWT_SECRET } = process.env;
       const token = jwt.sign(
         { _id: user._id },
@@ -129,5 +149,5 @@ const login = (req, res) => {
 };
 
 module.exports = {
-  getUsers, getProfile, updateProfile, updateAvatar, createUser, login
+  getUsers, getProfile, updateProfile, updateAvatar, createUser, login, getMyInfo
 };
