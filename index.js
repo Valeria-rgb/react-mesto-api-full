@@ -19,12 +19,6 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: '603a0f1d7fa2f144d5c1a810',
-//   };
-//   next();
-// });
 
 app.post('/signin', login);
 app.post('/signup', createUser);

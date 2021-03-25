@@ -1,5 +1,9 @@
 const CardModel = require('../models/card');
 
+const NotFoundError = require('../errors/not-found-err');
+const BadRequestError = require('../errors/bad-request-err');
+const ForbiddenError = require('../errors/forbidden-err');
+
 const getCards = (req, res) => {
   CardModel.find({})
     .populate('owner')
