@@ -4,55 +4,57 @@ const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
-const getCards = (req, res) => {
+const getCards = (req, res, next) => {
   CardModel.find({})
     .populate('owner')
     .then((cards) => res.status(200).send(cards))
-    .catch(() => res.status(500).send({ message: 'Ошибка сервера!' }));
+    .catch(next);
 };
 
-const postCard = (req, res) => {
+const postCard = (req, res, next) => {
   CardModel.create({
     name: req.body.name,
     link: req.body.link,
     owner: req.user._id
   })
-    .then((card) => res.status(200).send(card))
+    .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Переданы некорректные данные!' });
+        throw new BadRequestError('Переданы некорректные данные!');
       } else {
-        res.status(500).send({ message: 'Ошибка сервера!' });
+        next(err);
       }
     });
 };
 
-// если писать в if return - не проходит eslint
-
-const deleteCard = (req, res) => {
+const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   CardModel.findByIdAndRemove(cardId, req.body)
     .populate('owner')
-    .orFail(() => {
-      const err = new Error('Карточка не найдена!');
-      err.statusCode = 404;
-      throw err;
+    .catch(() => {
+      throw new NotFoundError('Карточка с данным id не найдена');
     })
-    .then((card) => {
-      res.status(200).send(card);
+    .then((data) => {
+      if (req.user._id === data.owner.toString()) {
+        CardModel.findByIdAndRemove({ _id: data._id })
+          .then(() => {
+            res.status(200).send({ message: 'Карточка удалена успешно!' });
+          })
+          .catch(next);
+      } else {
+        throw new ForbiddenError('Нет! Вы не можете удалять карточки других пользователей');
+      }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Переданы некорректные данные!' });
-      } else if (err.statusCode === 404) {
-        res.status(404).send({ message: 'Карточка с данным id не найдена' });
+        throw new BadRequestError('Переданы некорректные данные!');
       } else {
-        res.status(500).send({ message: 'Ошибка сервера!' });
+        next(err);
       }
     });
 };
 
-const putLike = (req, res) => {
+const putLike = (req, res, next) => {
   const { cardId } = req.params;
   CardModel.findByIdAndUpdate(cardId, {
     $addToSet: {
@@ -62,26 +64,22 @@ const putLike = (req, res) => {
     new: true,
   })
     .populate(['likes', 'owner'])
-    .orFail(() => {
-      const err = new Error('Карточка не найдена!');
-      err.statusCode = 404;
-      throw err;
+    .catch(() => {
+      throw new NotFoundError('Карточка с данным id не найдена');
     })
     .then((card) => {
       res.status(200).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Переданы некорректные данные!' });
-      } else if (err.statusCode === 404) {
-        res.status(404).send({ message: 'Карточка с данным id не найдена' });
+        throw new BadRequestError('Переданы некорректные данные!');
       } else {
-        res.status(500).send({ message: 'Ошибка сервера!' });
+        next(err);
       }
     });
 };
 
-const deleteLike = (req, res) => {
+const deleteLike = (req, res, next) => {
   const { cardId } = req.params;
   CardModel.findByIdAndUpdate(cardId, {
     $pull: {
@@ -91,27 +89,21 @@ const deleteLike = (req, res) => {
     new: true,
   })
     .populate(['likes', 'owner'])
-    .orFail(() => {
-      const err = new Error('Карточка не найдена!');
-      err.statusCode = 404;
-      throw err;
+    .catch(() => {
+      throw new NotFoundError('Карточка с данным id не найдена');
     })
     .then((card) => {
       res.status(200).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Переданы некорректные данные!' });
-      } else if (err.statusCode === 404) {
-        res.status(404).send({ message: 'Карточка с данным id не найдена' });
+        throw new BadRequestError('Переданы некорректные данные!');
       } else {
-        res.status(500).send({ message: 'Ошибка сервера!' });
+        next(err);
       }
     });
 };
 
-const getError = (req, res) => res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-
 module.exports = {
-  getCards, postCard, deleteCard, putLike, deleteLike, getError,
+  getCards, postCard, deleteCard, putLike, deleteLike
 };

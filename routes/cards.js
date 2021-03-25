@@ -10,6 +10,4 @@ router.delete('/cards/:cardId', auth, deleteCard);
 router.put('/cards/:cardId/likes', auth, putLike);
 router.delete('/cards/:cardId/likes', auth, deleteLike);
 
-router.all('/*', getError);
-
 module.exports = router;
