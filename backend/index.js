@@ -2,10 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const auth = require('./backend/middlewares/auth');
-const { createUser, login } = require('./backend/controllers/users');
-const { requestLogger, errorLogger} = require('./backend/middlewares/logger')
-const { signupValidator, signinValidator } = require('./backend/middlewares/validators')
+const auth = require('./middlewares/auth');
+const { createUser, login } = require('./controllers/users');
+const { requestLogger, errorLogger} = require('./middlewares/logger')
+const { signupValidator, signinValidator } = require('./middlewares/validators')
 const { errors } = require('celebrate');
 
 const app = express();
