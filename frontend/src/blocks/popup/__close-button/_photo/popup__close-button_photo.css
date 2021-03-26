@@ -1,0 +1,8 @@
+@media screen and (min-width: 960px) {
+  .popup__close-button_photo {
+    width: 49px;
+    height: 49px;
+    margin-right: -45px;
+    margin-bottom: -5px;
+  }
+}

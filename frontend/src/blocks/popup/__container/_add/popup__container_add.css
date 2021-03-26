@@ -1,0 +1,11 @@
+@media screen and (min-width: 300px) {
+  .popup__container_add {
+    width: 240px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .popup__container_add {
+    width: 430px;
+  }
+}

@@ -1,0 +1,19 @@
+.popup__form {
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: 300px) {
+  .popup__form {
+    width: 282px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .popup__form {
+    width: 430px;
+  }
+}

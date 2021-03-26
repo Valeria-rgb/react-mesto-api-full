@@ -1,0 +1,36 @@
+.navigation__link {
+  color: #A9A9A9;
+  font-weight: normal;
+  font-style: normal;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+}
+
+.navigation__link:focus {
+  outline: none;
+}
+
+.navigation__link:hover {
+  opacity: 60%;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+@media screen and (min-width: 300px) {
+  .navigation__link {
+    padding-right: 30px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .navigation__link {
+    padding: 6px 0 0;
+    font-size: 18px;
+    line-height: 22px;
+    margin-left: 24px;
+    align-self: start;
+  }
+}

@@ -1,0 +1,11 @@
+@media screen and (min-width: 300px) {
+  .auth__submit_register {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .auth__submit_register {
+    margin-bottom: 15px;
+  }
+}

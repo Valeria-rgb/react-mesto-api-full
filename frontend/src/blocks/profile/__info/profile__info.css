@@ -1,0 +1,23 @@
+.profile__info {
+  display: flex;
+}
+
+@media screen and (min-width: 300px) {
+  .profile__info {
+    width: 280px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .profile__info {
+    width: 336px;
+    margin-right: 100px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__info {
+    margin-right: 246px;
+  }
+}

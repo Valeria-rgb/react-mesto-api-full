@@ -1,0 +1,10 @@
+@media screen and (min-width: 300px) {
+  .popup__icon {
+    margin-top: 50px;
+  }
+}
+@media screen and (min-width: 300px) {
+  .popup__icon {
+    margin-top: 60px;
+  }
+}

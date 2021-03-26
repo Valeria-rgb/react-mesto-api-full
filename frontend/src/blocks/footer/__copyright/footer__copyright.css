@@ -1,0 +1,27 @@
+.footer__copyright {
+  color: #545454;
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.footer__copyright:hover {
+  cursor: default;
+}
+
+@media screen and (min-width: 300px) {
+  .footer__copyright {
+    padding-bottom: 36px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .footer__copyright {
+    padding-bottom: 60px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

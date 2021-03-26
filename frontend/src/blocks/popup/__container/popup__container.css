@@ -1,0 +1,18 @@
+.popup__container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 300px) {
+  .popup__container {
+    width: 282px;
+    align-items: flex-end;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .popup__container {
+    width: 480px;
+    align-items: center;
+  }
+}

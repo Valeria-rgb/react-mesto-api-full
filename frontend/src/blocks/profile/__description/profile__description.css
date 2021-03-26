@@ -1,0 +1,29 @@
+.profile__description {
+  color: white;
+  font-style: normal;
+  font-weight: 400;
+  text-overflow: ellipsis;
+}
+
+.profile__description:hover {
+  cursor: default;
+}
+
+@media screen and (min-width: 300px) {
+  .profile__description {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 36px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .profile__description {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: left;
+    margin:0;
+  }
+}

@@ -1,0 +1,14 @@
+@media screen and (min-width: 300px) and (max-width: 959px){
+  .popup__close-button_auth-info {
+    align-self: center;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .popup__close-button_auth-info {;
+    width: 48px;
+    height: 48px;
+  }
+}

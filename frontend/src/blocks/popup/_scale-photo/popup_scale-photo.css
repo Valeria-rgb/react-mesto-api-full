@@ -1,0 +1,6 @@
+.popup_scale-photo {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s ease, opacity 1s ease;
+}

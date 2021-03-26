@@ -1,0 +1,10 @@
+.popup__photo-title {
+  margin-top: 10px;
+  margin-bottom: 0;
+  width: 240px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+}
