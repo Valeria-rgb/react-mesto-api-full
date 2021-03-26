@@ -2,9 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const auth = require('../middlewares/auth');
+const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger} = require('./middlewares/logger')
+const { signupValidator, signinValidator } = require('./middlewares/validators')
+const { errors } = require('celebrate');
 
 const app = express();
 const usersRouter = require('./routes/users');
@@ -24,8 +26,8 @@ app.use(bodyParser.json());
 
 app.use(requestLogger);
 
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.post('/signin', signinValidator, login);
+app.post('/signup',signupValidator, createUser);
 
 app.use('/', auth, usersRouter);
 app.use('/', auth, cardsRouter);

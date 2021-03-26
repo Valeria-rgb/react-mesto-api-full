@@ -140,12 +140,12 @@ const login = (req, res, next) => {
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' });
-      res.send({token})
-        // .cookie('jwt', token, {
-        //   maxAge: 3600000 * 24 * 7,
-        //   httpOnly: true
-        // })
-
+      res
+        .cookie('jwt', token, {
+          maxAge: 3600000 * 24 * 7,
+          httpOnly: true
+        })
+        .end();
     })
      .catch(next);
 };
