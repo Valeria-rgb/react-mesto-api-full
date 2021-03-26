@@ -7,6 +7,7 @@ const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger} = require('./middlewares/logger')
 const { signupValidator, signinValidator } = require('./middlewares/validators')
 const { errors } = require('celebrate');
+const cors = require('cors');
 
 const app = express();
 const usersRouter = require('./routes/users');
@@ -20,6 +21,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 const PORT = 3000;
+const options = {
+  origin: [
+    'http://localhost:8080',
+    'http://api.valeria-rgb.students.nomoredomains.icu/',    'http://valeria-rgb.students.nomoredomains.icu/',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  preflightContinue: false,  optionsSuccessStatus: 204,  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],  credentials: true,};
+app.use('*', cors(options));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
