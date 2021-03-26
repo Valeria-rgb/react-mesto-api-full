@@ -82,7 +82,7 @@ class Api {
     }
 
     signUp(email, password) {
-        return fetch("https://auth.nomoreparties.co/signup", {
+        return this._sendData("signup", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -90,16 +90,10 @@ class Api {
             },
             body: JSON.stringify({email, password})
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Произошла ошибка: ${res.status}`);
-            })
     };
 
     signIn(email, password) {
-        return fetch("https://auth.nomoreparties.co/signin", {
+        return this._sendData("signin", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -107,7 +101,6 @@ class Api {
             },
             body: JSON.stringify({email, password})
         })
-            .then((res => res.json()))
             .then((data) => {
                 const token = data.token;
                 if (token) {
@@ -119,26 +112,24 @@ class Api {
     };
 
     getToken(jwt) {
-        return fetch("https://auth.nomoreparties.co/users/me", {
+        return this._sendData("users/me", {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwt}`,
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => res.json())
             .catch((err) => console.log(err))
     }
 }
 
 const myApi = new Api({
-    url: "https://mesto.nomoreparties.co/v1/cohort-18/",
+    url: "http://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
-        "Authorization": "4ce0d8a0-2bf1-4ede-8511-f9af6b75d79f",
-        "Content-Type": "application/json"
-    }
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json",
+}
 });
 export default myApi;
-
 
 
