@@ -17,14 +17,16 @@ class Api {
     getUserInfo() {
         return this._sendData("users/me", {
             method: "GET",
-            headers: this._headers
+            credentials: 'include',
+            headers: this._headers,
         })
     }
 
     getCards() {
         return this._sendData("cards", {
             method: "GET",
-            headers: this._headers
+            credentials: 'include',
+            headers: this._headers,
         })
     }
 
@@ -39,6 +41,7 @@ class Api {
         return this._sendData("users/me", {
             method: "PATCH",
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 name: data.name,
                 about: data.about
@@ -50,6 +53,7 @@ class Api {
         return this._sendData("cards", {
             method: "POST",
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 name: newCard.name,
                 link: newCard.link
@@ -60,14 +64,16 @@ class Api {
     changeLikeCardStatus(cardId, isLiked) {
         return this._sendData(`cards/likes/${cardId}`, {
             method: isLiked ? 'DELETE' : 'PUT',
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         });
     }
 
     deleteCard(card) {
         return this._sendData(`cards/${card}`, {
             method: "DELETE",
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
     }
 
@@ -75,6 +81,7 @@ class Api {
         return this._sendData('users/me/avatar', {
             method: "PATCH",
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 avatar: avatar.avatar
             })
@@ -86,8 +93,9 @@ class Api {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({email, password})
         })
     };
@@ -118,7 +126,8 @@ class Api {
             headers: {
                 'Authorization': `Bearer ${jwt}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include',
         })
             .catch((err) => console.log(err))
     }
@@ -128,8 +137,8 @@ const myApi = new Api({
     url: "http://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
         "Authorization": `Bearer ${localStorage.getItem('token')}`,
-        "Content-Type": "application/json",
-}
+        "Content-Type": "application/json"
+    }
 });
 export default myApi;
 
