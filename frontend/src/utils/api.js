@@ -19,7 +19,7 @@ class Api {
             method: "GET",
             credentials: 'include',
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             }
         })
     }
@@ -29,7 +29,7 @@ class Api {
             method: "GET",
             credentials: 'include',
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             }
         })
     }
@@ -45,7 +45,7 @@ class Api {
         return this._sendData("users/me", {
             method: "PATCH",
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
             credentials: 'include',
             body: JSON.stringify({
@@ -59,7 +59,7 @@ class Api {
         return this._sendData("cards", {
             method: "POST",
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
             credentials: 'include',
             body: JSON.stringify({
@@ -73,7 +73,7 @@ class Api {
         return this._sendData(`cards/likes/${cardId}`, {
             method: isLiked ? 'DELETE' : 'PUT',
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
             credentials: 'include',
         });
@@ -83,7 +83,7 @@ class Api {
         return this._sendData(`cards/${card}`, {
             method: "DELETE",
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
             credentials: 'include',
         })
@@ -93,7 +93,7 @@ class Api {
         return this._sendData('users/me/avatar', {
             method: "PATCH",
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
             credentials: 'include',
             body: JSON.stringify({
@@ -132,7 +132,7 @@ class Api {
         return this._sendData("users/me", {
             method: 'GET',
             headers: {
-                // "Authorization": `Bearer ${jwt}`
+                "Authorization": `Bearer ${jwt}`
             },
             credentials: 'include',
         })
