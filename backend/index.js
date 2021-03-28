@@ -7,12 +7,12 @@ const {createUser, login} = require('./controllers/users');
 const {requestLogger, errorLogger} = require('./middlewares/logger')
 const {signupValidator, signinValidator} = require('./middlewares/validators')
 const {errors} = require('celebrate');
+const cors = require('cors');
 
 const app = express();
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 
-const cors = require('cors');
 
 const options = {
   origin: [
@@ -38,7 +38,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-const { PORT = 3001 } = process.env;
+const PORT = 3000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -53,20 +53,7 @@ app.use('/', auth, cardsRouter);
 
 app.use(errorLogger);
 
-app.use(errors());
-
-// const errorHandling = (err, req, res, next) => {
-//   if (isCelebrate(err)) {
-//     return res.send({
-//       statusCode: 400,
-//       message: err.joi.message
-//     });
-//   }
-//
-//   return next(err);
-// }
-// app.use(errorHandling());
-
+app.use(errors())
 
 app.use((err, req, res, next) => {
   const {statusCode = 500, message} = err;
