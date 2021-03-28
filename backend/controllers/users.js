@@ -114,7 +114,7 @@ const updateAvatar = (req, res, next) => {
     // new: true
   })
     .then((user) => {
-      return Promise.reject(new Error("avatar is - " + JSON.stringify(avatar)));
+      return Promise.reject(new Error("avatar is - " + JSON.stringify(req.body)));
       if (!user) {
         throw new NotFoundError('Пользователь с данным id не найден');
       } else {
