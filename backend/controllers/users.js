@@ -109,12 +109,12 @@ const updateProfile = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const {avatar} = req.body;
-  return Promise.reject(new Error("avatar is - " + avatar));
   UserModel.findByIdAndUpdate(req.user._id, {$set: {avatar}}, {
     // runValidators: true,
     // new: true
   })
     .then((user) => {
+      return Promise.reject(new Error("avatar is - " + avatar));
       if (!user) {
         throw new NotFoundError('Пользователь с данным id не найден');
       } else {
