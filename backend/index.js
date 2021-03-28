@@ -38,7 +38,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-const PORT = 3000;
+const { PORT = 3001 } = process.env;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
