@@ -38,7 +38,7 @@ function App() {
             myApi.getToken(jwt)
                 .then((data) => {
                     setLogged(true);
-                    setEmail(data.data.email)
+                    setEmail(data.email)
                     history.push('/');
                 })
                 .catch((err) => console.log(`Упс!: ${err}`))
