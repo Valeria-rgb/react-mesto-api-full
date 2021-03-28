@@ -10,9 +10,12 @@ const {errors} = require('celebrate');
 const cors = require('cors');
 
 const app = express();
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser())
+
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
-
 
 const options = {
   origin: [

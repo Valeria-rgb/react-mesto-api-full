@@ -128,11 +128,11 @@ class Api {
             .catch(err => console.log(err))
     };
 
-    getToken(jwt) {
+    getToken() {
         return this._sendData("users/me", {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${jwt}`
+                // "Authorization": `Bearer ${jwt}`
             },
             credentials: 'include',
         })
@@ -143,7 +143,7 @@ class Api {
 const myApi = new Api({
     url: "http://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
         "Content-Type": "application/json"
     }
 });

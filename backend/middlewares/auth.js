@@ -7,13 +7,14 @@ const handleAuthError = (res) => {
 };
 
 const extractBearerToken = (header) => {
-  return header.replace('Bearer ', '');
+  const startIndex = header.indexOf("=")
+  return header.slice(startIndex);
 };
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
+  const { authorization } = req.cookies;
 
-  if (!authorization || !authorization.startsWith('Bearer ')) {
+  if (!authorization) {
     return handleAuthError(res);
   }
 
