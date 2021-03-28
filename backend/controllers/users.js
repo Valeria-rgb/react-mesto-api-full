@@ -108,7 +108,7 @@ const updateProfile = (req, res, next) => {
 };
 
 const updateAvatar = (req, res, next) => {
-  const {avatar} = req.body;
+  const avatar = req.body;
   UserModel.findByIdAndUpdate(req.user._id, {$set: {avatar}}, {
     // runValidators: true,
     // new: true
@@ -125,7 +125,8 @@ const updateAvatar = (req, res, next) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         throw new BadRequestError('Переданы некорректные данные!');
       } else {
-        next(err);
+        throw new BadRequestError(err);
+        // next(err);
       }
     });
 };
