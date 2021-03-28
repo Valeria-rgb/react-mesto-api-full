@@ -133,7 +133,7 @@ const login = (req, res, next) => {
   const {email, password} = req.body;
   return UserModel.findUserByCredentials(email, password)
     .catch(() => {
-      throw new UnauthorizedError('Требуется авторизация!');
+      throw new UnauthorizedError('Требуется авторизация hui!');
     })
     .then((user) => {
       const token = jwt.sign(
