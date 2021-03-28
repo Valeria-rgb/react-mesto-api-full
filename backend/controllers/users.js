@@ -52,41 +52,37 @@ const getProfile = (req, res, next) => {
     });
 };
 
-
-
-
-
-
-
-
 const createUser = (req, res, next) => {
   const {email, password, name, about, avatar} = req.body;
-  UserModel.findOne({email})
+  UserModel.findOne({
+    email,
+  })
     .then((data) => {
       if (data) {
         throw new ConflictError('Пользователь с таким email уже существует!');
       }
-      // return bcrypt.hash(password, 10);
+      return bcrypt.hash(password, 10);
     })
-    .catch(next);
-
-  bcrypt.hash(password, 10)
     .then((hash) => UserModel.create({
       name,
       about,
       avatar,
       email,
       password: hash,
-  }))
-    .then((user) => res.status(200).send({
-      data: {
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        email: user.email,
-      },
     }))
-    .catch(next);
+    .then((user) => res.status(200).send({
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+      email: user.email,
+    }))
+    .catch((err) => {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
+        throw new BadRequestError('Переданы некорректные данные!');
+      } else {
+        next(err);
+      }
+    });
 };
 
 const updateProfile = (req, res, next) => {
