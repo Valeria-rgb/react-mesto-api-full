@@ -18,9 +18,7 @@ class Api {
         return this._sendData("users/me", {
             method: "GET",
             credentials: 'include',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-            }
+            headers: this._headers,
         })
     }
 
@@ -28,9 +26,7 @@ class Api {
         return this._sendData("cards", {
             method: "GET",
             credentials: 'include',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-            }
+            headers: this._headers,
         })
     }
 
@@ -44,9 +40,7 @@ class Api {
     changeUserInfo(data) {
         return this._sendData("users/me", {
             method: "PATCH",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-            },
+            headers: this._headers,
             credentials: 'include',
             body: JSON.stringify({
                 name: data.name,
@@ -58,9 +52,7 @@ class Api {
     addCard(newCard) {
         return this._sendData("cards", {
             method: "POST",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-            },
+            headers: this._headers,
             credentials: 'include',
             body: JSON.stringify({
                 name: newCard.name,
@@ -72,9 +64,7 @@ class Api {
     changeLikeCardStatus(cardId, isLiked) {
         return this._sendData(`cards/likes/${cardId}`, {
             method: isLiked ? 'DELETE' : 'PUT',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-            },
+            headers: this._headers,
             credentials: 'include',
         });
     }
@@ -82,20 +72,15 @@ class Api {
     deleteCard(card) {
         return this._sendData(`cards/${card}`, {
             method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-            },
+            headers: this._headers,
             credentials: 'include',
         })
     }
 
     changeAvatar(avatar) {
         return this._sendData('users/me/avatar', {
-            method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
-                "Content-Type": "application/json"
-            },
+            method: "PATCH",
+            headers: this._headers,
             credentials: 'include',
             body: JSON.stringify({
                 avatar: avatar.avatar
@@ -106,7 +91,9 @@ class Api {
     signUp(email, password) {
         return this._sendData("signup", {
             method: 'POST',
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json"
+            },
             credentials: 'include',
             body: JSON.stringify({email, password})
         })
@@ -115,7 +102,9 @@ class Api {
     signIn(email, password) {
         return this._sendData("signin", {
             method: 'POST',
-            headers: this._headers,
+            headers: {
+                "Content-Type": "application/json"
+            },
             credentials: 'include',
             body: JSON.stringify({email, password})
         })
@@ -134,6 +123,7 @@ class Api {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${jwt}`,
+                "Content-Type": "application/json"
             },
             credentials: 'include',
         })
@@ -144,7 +134,7 @@ class Api {
 const myApi = new Api({
     url: "http://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
-        // "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+        "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
         "Content-Type": "application/json"
     }
 });

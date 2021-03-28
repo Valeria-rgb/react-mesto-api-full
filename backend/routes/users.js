@@ -8,7 +8,7 @@ router.get('/users', getUsers);
 router.get('/users/me', getMyInfo);
 router.get('/users/:userId', getProfile);
 router.patch('/users/me', updateProfile);
-router.put('/users/me/avatar', updateAvatar);
+router.patch('/users/me/avatar', updateAvatar);
 
 module.exports = router;
 
