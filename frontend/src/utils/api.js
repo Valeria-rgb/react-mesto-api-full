@@ -43,7 +43,7 @@ class Api {
 
     changeUserInfo(data) {
         return this._sendData("users/me", {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
@@ -91,7 +91,7 @@ class Api {
 
     changeAvatar(avatar) {
         return this._sendData('users/me/avatar', {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
