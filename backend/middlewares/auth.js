@@ -7,8 +7,7 @@ const handleAuthError = (res) => {
 };
 
 const extractBearerToken = (header) => {
-  const startIndex = header.indexOf("=")
-  return header.slice(startIndex);
+  return header.replace('jwt=', '');
 };
 
 module.exports = (req, res, next) => {
