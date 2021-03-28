@@ -132,7 +132,7 @@ class Api {
         return this._sendData("users/me", {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${jwt}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
             },
             credentials: 'include',
         })
