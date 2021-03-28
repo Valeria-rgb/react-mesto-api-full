@@ -91,7 +91,7 @@ class Api {
 
     changeAvatar(avatar) {
         return this._sendData('users/me/avatar', {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('jwt')}`
             },
