@@ -109,9 +109,10 @@ const updateProfile = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const {avatar} = req.body;
+  return Promise.reject(new Error("avatar is - " + avatar));
   UserModel.findByIdAndUpdate(req.user._id, {$set: {avatar}}, {
-    runValidators: true,
-    new: true
+    // runValidators: true,
+    // new: true
   })
     .then((user) => {
       if (!user) {
