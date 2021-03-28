@@ -128,11 +128,11 @@ class Api {
             .catch(err => console.log(err))
     };
 
-    getToken() {
+    getToken(jwt) {
         return this._sendData("users/me", {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+                "Authorization": `Bearer ${jwt}`,
             },
             credentials: 'include',
         })
