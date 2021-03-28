@@ -132,16 +132,15 @@ const updateAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const {email, password} = req.body;
   return UserModel.findUserByCredentials(email, password)
-    .catch((reason) => {
-      throw new UnauthorizedError('Требуется авторизация! ' + reason);
-    })
     .then((user) => {
+      if (!user) {
+        throw new BadRequestError('Переданы некорректные данные!');
+      }
       const token = jwt.sign(
         {_id: user._id},
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         {expiresIn: '7d'});
-      res
-        .send({token})
+      res.send({token})
     })
     .catch(next);
 };
