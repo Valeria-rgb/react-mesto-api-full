@@ -11,7 +11,7 @@ const extractBearerToken = (header) => {
 };
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.cookies;
+  const { authorization } = req.cookies.jwt;
 
   if (!authorization) {
     return handleAuthError(res);
