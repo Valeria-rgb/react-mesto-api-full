@@ -109,7 +109,7 @@ const updateProfile = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const avatar = req.body;
-  UserModel.findByIdAndUpdate(req.user._id, {$set: {avatar}}, {
+  UserModel.findByIdAndUpdate(req.user._id, {$set: avatar}, {
     // runValidators: true,
     // new: true
   })
