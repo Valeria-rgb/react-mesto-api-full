@@ -52,6 +52,13 @@ const getProfile = (req, res, next) => {
     });
 };
 
+
+
+
+
+
+
+
 const createUser = (req, res, next) => {
   const {email, password, name, about, avatar} = req.body;
   UserModel.findOne({email})
@@ -126,20 +133,27 @@ const updateAvatar = (req, res, next) => {
     });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
+  try {
   const {email, password} = req.body;
-  return UserModel.findUserByCredentials(email, password)
-    .then((user) => {
+  const user = await UserModel.findOne( {email} ).select('+password');
       if (!user) {
-        throw new BadRequestError('Переданы некорректные данные!');
+        next(new UnauthorizedError('Неправильный почта/пароль'));
       }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      next(new UnauthorizedError('Неправильный почта/пароль'));
+    }else{
       const token = jwt.sign(
-        {_id: user._id},
+        { _id: user?._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-        {expiresIn: '7d'});
-      res.send({token})
-    })
-    .catch(next);
+        { expiresIn: '7d' },
+      );
+      return res.send({ token });
+    }
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = {
