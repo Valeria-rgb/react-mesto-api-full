@@ -93,7 +93,8 @@ class Api {
         return this._sendData('users/me/avatar', {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+                "Content-Type": "application/json"
             },
             credentials: 'include',
             body: JSON.stringify({

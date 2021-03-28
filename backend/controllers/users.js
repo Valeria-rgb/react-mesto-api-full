@@ -110,11 +110,10 @@ const updateProfile = (req, res, next) => {
 const updateAvatar = (req, res, next) => {
   const {avatar} = req.body;
   UserModel.findByIdAndUpdate(req.user._id, {$set: avatar}, {
-    // runValidators: true,
-    // new: true
+    runValidators: true,
+    new: true
   })
     .then((user) => {
-      return Promise.reject(new Error("avatar is - " + JSON.stringify(req.body)));
       if (!user) {
         throw new NotFoundError('Пользователь с данным id не найден');
       } else {
