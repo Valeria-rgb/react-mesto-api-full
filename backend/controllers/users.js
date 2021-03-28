@@ -132,9 +132,9 @@ const updateAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const {email, password} = req.body;
   return UserModel.findUserByCredentials(email, password)
-    .catch(() => {
-      throw new UnauthorizedError('Требуется авторизация hui!');
-    })
+    // .catch((error) => {
+    //   throw new UnauthorizedError('Требуется авторизация!');
+    // })
     .then((user) => {
       const token = jwt.sign(
         {_id: user._id},
