@@ -143,7 +143,7 @@ class Api {
 const myApi = new Api({
     url: "http://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+        "Authorization": `Bearer ${req.headers.cookie}`,
         "Content-Type": "application/json"
     }
 });
