@@ -53,7 +53,19 @@ app.use('/', auth, cardsRouter);
 
 app.use(errorLogger);
 
-app.use(errors());
+// app.use(errors());
+
+const errorHandling = (err, req, res, next) => {
+  if (isCelebrate(err)) {
+    return res.send({
+      statusCode: 400,
+      message: err.joi.message
+    });
+  }
+
+  return next(err);
+}
+app.use(errorHandling());
 
 
 app.use((err, req, res, next) => {
