@@ -125,8 +125,7 @@ const updateAvatar = (req, res, next) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         throw new BadRequestError('Переданы некорректные данные!');
       } else {
-        throw new BadRequestError(err);
-        // next(err);
+        next(err);
       }
     });
 };
