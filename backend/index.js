@@ -60,7 +60,7 @@ app.use((err, req, res, next) => {
 
   res
     .status(statusCode)
-    .send({message: statusCode === 500 ? 'Ошибка сервера!' + message : message});
+    .send({message: statusCode === 500 ? 'Ошибка сервера!' : message});
 
   next();
 });
