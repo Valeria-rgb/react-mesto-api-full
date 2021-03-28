@@ -87,7 +87,7 @@ const createUser = (req, res, next) => {
 
 const updateProfile = (req, res, next) => {
   const {name, about} = req.body;
-  UserModel.findByIdAndUpdate(req.user._id, {name, about}, {
+  UserModel.findByIdAndUpdate(req.user._id, {$set:{name, about}}, {
     runValidators: true,
     new: true,
   })
@@ -109,7 +109,7 @@ const updateProfile = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const {avatar} = req.body;
-  UserModel.findByIdAndUpdate(req.user._id, {avatar}, {
+  UserModel.findByIdAndUpdate(req.user._id, { $set: { avatar } }, {
     runValidators: true,
     new: true,
   })
