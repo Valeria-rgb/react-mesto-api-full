@@ -145,7 +145,7 @@ const login = async (req, res, next) => {
       next(new UnauthorizedError('Неправильный почта/пароль'));
     }else{
       const token = jwt.sign(
-        { _id: user?._id },
+        { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
