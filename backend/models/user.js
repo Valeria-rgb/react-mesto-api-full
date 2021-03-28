@@ -50,6 +50,7 @@ userSchema.statics.findUserByCredentials = function (email, password) {
       }
       return bcrypt.hash(password, 10)
         .then((passHash) => {
+          return Promise.reject(new Error('passHash - ' + passHash));
           bcrypt.compare(passHash, user.password)
         })
         .then((matched) => {
