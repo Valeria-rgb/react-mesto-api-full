@@ -132,7 +132,7 @@ changeLikeCardStatus(cardId, isLiked) {
 }
 
 const myApi = new Api({
-    url: "http://api.valeria-rgb.students.nomoredomains.icu/",
+    url: "https://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
         "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
         "Content-Type": "application/json",

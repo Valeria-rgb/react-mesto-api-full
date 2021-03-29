@@ -12,7 +12,7 @@ const signupValidator = celebrate({
     }),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
+    avatar: Joi.string().regex(/^http[s]?:\/\/\w+/)
   }),
 });
 
@@ -38,16 +38,17 @@ const updateProfileValidator = celebrate({
 
 const updateAvatarValidator = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
+    avatar: Joi.string().regex(/^http[s]?:\/\/\w+/)
   }),
 });
 
 const postCardValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    link: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
+    link: Joi.string().regex(/^http[s]?:\/\/\w+/)
   }),
 });
 
 module.exports = {
-  signupValidator, signinValidator, updateAvatarValidator, updateProfileValidator, postCardValidator};
+  signupValidator, signinValidator, updateAvatarValidator, updateProfileValidator, postCardValidator
+};
