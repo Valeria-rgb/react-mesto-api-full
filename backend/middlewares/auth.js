@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const auth = (req, res, next) => {
+module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    return res
+    res
       .status(401)
       .send({ message: 'Необходима авторизация' });
   }
@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (err) {
-    return res
+    res
       .status(401)
       .send({ message: 'Необходима авторизация' });
   }
@@ -25,4 +25,3 @@ const auth = (req, res, next) => {
   next();
 };
 
-module.exports = { auth };
