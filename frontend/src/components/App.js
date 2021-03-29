@@ -103,7 +103,7 @@ function App() {
             .then(() => {
                 const newCards = cards.filter((c) => c._id !== selectedCardDelete._id);
                 setCards(newCards);
-                setSelectedCardDelete({});
+                // setSelectedCardDelete({});
                 setIsLoading(false);
                 closeAllPopups();
             })

@@ -135,7 +135,8 @@ const myApi = new Api({
     url: "http://api.valeria-rgb.students.nomoredomains.icu/",
     headers: {
         "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "application/json"
     }
 });
 export default myApi;

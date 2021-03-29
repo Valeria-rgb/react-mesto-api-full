@@ -28,30 +28,18 @@ const postCard = (req, res, next) => {
 };
 
 const deleteCard = (req, res, next) => {
-  const { cardId } = req.params;
-  CardModel.findByIdAndRemove(cardId, req.body)
-    .populate('owner')
-    .catch(() => {
-      throw new NotFoundError('Карточка с данным id не найдена');
-    })
-    .then((data) => {
-      if (req.user._id === data.owner.toString()) {
-        CardModel.findByIdAndRemove({ _id: data._id })
-          .then(() => {
-            res.status(200).send({ message: 'Карточка удалена успешно!' });
-          })
-          .catch(next);
-      } else {
+  CardModel.findById(req.params.cardId)
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка с данным id не найдена');
+      } else if (card.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Нет! Вы не можете удалять карточки других пользователей');
+      } else {
+        CardModel.findByIdAndDelete(req.params.cardId)
+          .then(() => res.send({ message: 'Карточка удалена успешно!' }));
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        throw new BadRequestError('Переданы некорректные данные!');
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 const putLike = (req, res, next) => {
