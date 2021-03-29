@@ -134,11 +134,10 @@ function App() {
 
     function handleAddPlaceSubmit(card) {
         setIsLoading(true);
-        myApi.addCard(card.name, card.link)
+        myApi.addCard(card)
             .then((newCard) => {
                 setIsLoading(false);
-                setCurrentUser({...currentUser,cards:[newCard,...currentUser.cards]});
-                // setCards([newCard, ...cards]);
+                setCards([newCard, ...cards]);
                 closeAllPopups();
             })
             .catch((err) => console.log(`Упс!: ${err}`));

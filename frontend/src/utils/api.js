@@ -61,8 +61,8 @@ class Api {
         })
     }
 
-    changeLikeCardStatus(cardId, isLiked) {
-        return this._sendData(`cards/likes/${cardId}`, {
+changeLikeCardStatus(cardId, isLiked) {
+        return this._sendData(`cards/${cardId}/likes`, {
             method: isLiked ? 'DELETE' : 'PUT',
             headers: this._headers,
             credentials: 'include',

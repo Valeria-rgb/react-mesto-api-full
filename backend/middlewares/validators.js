@@ -28,26 +28,26 @@ const signinValidator = celebrate({
     }),
   }),
 });
-//
-// const updateProfileValidator = celebrate({
-//   body: Joi.object().keys({
-//     name: Joi.string().min(2).max(30),
-//     about: Joi.string().min(2).max(30)
-//   }),
-// });
-//
-// const updateAvatarValidator = celebrate({
-//   body: Joi.object().keys({
-//     avatar: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
-//   }),
-// });
-//
-// const postCardValidator = celebrate({
-//   body: Joi.object().keys({
-//     name: Joi.string().min(2).max(30),
-//     link: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
-//   }),
-// });
+
+const updateProfileValidator = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(30)
+  }),
+});
+
+const updateAvatarValidator = celebrate({
+  body: Joi.object().keys({
+    avatar: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
+  }),
+});
+
+const postCardValidator = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    link: Joi.string().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:\/?#[\]@!$&'()*+,;=]{0,}/i)
+  }),
+});
 
 module.exports = {
-  signupValidator, signinValidator};
+  signupValidator, signinValidator, updateAvatarValidator, updateProfileValidator, postCardValidator};

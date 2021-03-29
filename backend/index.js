@@ -45,6 +45,12 @@ app.use(bodyParser.json());
 
 app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.post('/signin', signinValidator, login);
 app.post('/signup', signupValidator, createUser);
 
@@ -53,7 +59,7 @@ app.use('/', auth, cardsRouter);
 
 app.use(errorLogger);
 
-app.use(errors())
+app.use(errors());
 
 app.use((err, req, res, next) => {
   const {statusCode = 500, message} = err;
