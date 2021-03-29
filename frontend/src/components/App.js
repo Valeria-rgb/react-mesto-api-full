@@ -31,21 +31,44 @@ function App() {
     const [email, setEmail] = React.useState("");
 
     const history = useHistory();
+    //
+    // React.useEffect(() => {
+    //     let jwt = localStorage.getItem('jwt');
+    //     if (jwt) {
+    //         myApi.getToken(jwt)
+    //             .then((data) => {
+    //                 setLogged(true);
+    //                 setEmail(data.email)
+    //                 history.push('/');
+    //             })
+    //             .catch((err) => console.log(`Упс!: ${err}`))
+    //     }
+    // }, [history]);
 
-    React.useEffect(() => {
-        let jwt = localStorage.getItem('jwt');
-        if (jwt) {
-            myApi.getToken(jwt)
-                .then((data) => {
-                    setLogged(true);
-                    setEmail(data.email)
-                    history.push('/');
-                })
-                .catch((err) => console.log(`Упс!: ${err}`))
+    const tokenCheck = () => {
+        const jwt = localStorage.getItem('jwt');
+
+        if (!jwt) {
+            return;
         }
-    }, [history]);
+
+        myApi.getToken(jwt)
+            .then((res) => {
+            if (res) {
+                console.log(res)
+                const email = res.email;
+                setLogged(true);
+                setEmail(email);
+                history.push('/')
+            }
+        });
+    }
 
     React.useEffect(() => {
+        tokenCheck();
+    }, [localStorage]);
+
+React.useEffect(() => {
         myApi.getCards()
             .then((cards) => {
                 setCards(cards);
