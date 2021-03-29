@@ -7,8 +7,8 @@
 5. Запросы валидируются
 6. Реализовано логирование запросов и ошибок
   
-FrontEnd: http://valeria-rgb.students.nomoredomains.icu/
+FrontEnd: https://valeria-rgb.students.nomoredomains.icu/
 
-Backend: http://valeria-rgb.students.nomoredomains.icu/
+Backend: https://api.valeria-rgb.students.nomoredomains.icu/
 
 Публичный IP-адрес: 178.154.204.41
