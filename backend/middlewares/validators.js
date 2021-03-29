@@ -50,5 +50,6 @@ const postCardValidator = celebrate({
 });
 
 module.exports = {
-  signupValidator, signinValidator, updateAvatarValidator, updateProfileValidator, postCardValidator
+  signupValidator, signinValidator,
+  updateAvatarValidator, updateProfileValidator, postCardValidator
 };
