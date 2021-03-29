@@ -145,7 +145,7 @@ const login = async (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         {expiresIn: '7d'},
       );
-      return res.send({token});
+      res.send({token});
     }
   } catch (err) {
     next(err);
