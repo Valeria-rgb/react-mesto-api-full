@@ -13,7 +13,7 @@ const signupValidator = celebrate({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().regex(/^http[s]?:\/\/\w+/)
-  }),
+  })
 });
 
 const signinValidator = celebrate({
@@ -25,31 +25,57 @@ const signinValidator = celebrate({
       'string.min': 'Минимум два символа',
       'string.max': 'Максимум 30 символов',
       'any.required': 'Обязательное поле',
-    }),
-  }),
+    })
+  })
+});
+
+const getUserByIdValidator = celebrate({
+  params: Joi.object().keys({
+    id: Joi.string().required().length(24).hex()
+  })
 });
 
 const updateProfileValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30)
-  }),
+  })
 });
 
 const updateAvatarValidator = celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().regex(/^http[s]?:\/\/\w+/)
-  }),
+  })
 });
 
 const postCardValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     link: Joi.string().regex(/^http[s]?:\/\/\w+/)
-  }),
+  })
+});
+
+const deleteCardValidator = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().required().length(24).hex()
+  }).unknown(true)
+});
+
+const putLikeValidator = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().required().length(24).hex()
+  }).unknown(true)
+});
+
+const deleteLikeValidator = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().required().length(24).hex()
+  }).unknown(true)
 });
 
 module.exports = {
   signupValidator, signinValidator,
-  updateAvatarValidator, updateProfileValidator, postCardValidator
+  getUserByIdValidator, updateAvatarValidator,
+  updateProfileValidator, postCardValidator,
+  deleteCardValidator, putLikeValidator, deleteLikeValidator
 };
