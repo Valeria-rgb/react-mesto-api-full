@@ -13,6 +13,7 @@ const app = express();
 
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const dontExistRouter = require('./routes/dontexist');
 
 const options = {
   origin: [
@@ -56,6 +57,7 @@ app.post('/signup', signupValidator, createUser);
 
 app.use('/', auth, usersRouter);
 app.use('/', auth, cardsRouter);
+app.use('/', dontExistRouter);
 
 app.use(errorLogger);
 
