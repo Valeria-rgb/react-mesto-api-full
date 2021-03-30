@@ -52,11 +52,11 @@ const putLike = (req, res, next) => {
     new: true,
   })
     .populate(['likes', 'owner'])
-    .catch(() => {
-      throw new NotFoundError('Карточка с данным id не найдена');
-    })
     .then((card) => {
-      res.status(200).send(card);
+    if (!card) {
+      throw new NotFoundError('Карточка с данным id не найдена');
+    }
+      return res.status(200).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -77,11 +77,11 @@ const deleteLike = (req, res, next) => {
     new: true,
   })
     .populate(['likes', 'owner'])
-    .catch(() => {
-      throw new NotFoundError('Карточка с данным id не найдена');
-    })
     .then((card) => {
-      res.status(200).send(card);
+      if (!card) {
+        throw new NotFoundError('Карточка с данным id не найдена');
+      }
+      return res.status(200).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
