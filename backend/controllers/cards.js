@@ -6,7 +6,7 @@ const ForbiddenError = require('../errors/forbidden-err');
 
 const getCards = (req, res, next) => {
   CardModel.find({})
-    // .populate('owner')
+    .populate('owner')
     .then((cards) => res.status(200).send(cards))
     .catch(next);
 };
@@ -51,7 +51,7 @@ const putLike = (req, res, next) => {
   }, {
     new: true,
   })
-    // .populate(['likes', 'owner'])
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
@@ -76,7 +76,7 @@ const deleteLike = (req, res, next) => {
   }, {
     new: true,
   })
-    // .populate(['likes', 'owner'])
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
