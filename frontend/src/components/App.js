@@ -99,6 +99,7 @@ React.useEffect(() => {
 
     function handleCardDelete() {
         setIsLoading(true);
+
         myApi.deleteCard(selectedCardDelete._id)
             .then(() => {
                 const newCards = cards.filter((c) => c._id !== selectedCardDelete._id);
@@ -134,7 +135,7 @@ React.useEffect(() => {
 
     function handleAddPlaceSubmit(card) {
         setIsLoading(true);
-        myApi.addCard(card)
+        myApi.addCard(card, isOwn)
             .then((newCard) => {
                 setIsLoading(false);
                 setCards([newCard, ...cards]);
