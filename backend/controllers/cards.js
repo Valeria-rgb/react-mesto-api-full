@@ -29,6 +29,7 @@ const postCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   CardModel.findById(req.params.cardId)
+    .populate('owner')
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
