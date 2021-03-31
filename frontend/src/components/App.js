@@ -36,10 +36,9 @@ function App() {
         let jwt = localStorage.getItem('jwt');
         if (jwt) {
             myApi.getToken(jwt)
-                .then((res) => {
-                    setCurrentUser(res.data);
+                .then((data) => {
                     setLogged(true);
-                    setEmail(res.data.email)
+                    setEmail(data.email)
                     history.push('/');
                 })
                 .catch((err) => console.log(`Упс!: ${err}`))
