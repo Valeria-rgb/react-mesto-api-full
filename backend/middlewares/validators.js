@@ -31,7 +31,7 @@ const signinValidator = celebrate({
 
 const getUserByIdValidator = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().length(24).hex()
+    userId: Joi.string().required().length(24).hex()
   })
 });
 
