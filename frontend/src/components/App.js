@@ -56,7 +56,7 @@ React.useEffect(() => {
     React.useEffect(() => {
         myApi.getUserInfo()
             .then(data => {
-                setCurrentUser({...data})
+                setCurrentUser(data)
             })
             .catch((err) => console.log(`Упс!: ${err}`))
     }, []);
