@@ -8,12 +8,12 @@ const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { signupValidator, signinValidator } = require('./middlewares/validators');
-const { NotFoundError } = require('./errors/not-found-err');
 
 const app = express();
 
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const dontExistRouter = require('./routes/dontexist');
 
 const options = {
   origin: [
@@ -57,6 +57,7 @@ app.post('/signup', signupValidator, createUser);
 
 app.use('/', auth, usersRouter);
 app.use('/', auth, cardsRouter);
+app.use('/*', dontExistRouter);
 
 app.use(() => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');

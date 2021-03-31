@@ -53,6 +53,7 @@ React.useEffect(() => {
             .catch((err) => console.log(`Упс!: ${err}`))
     }, []);
 
+
     React.useEffect(() => {
         myApi.getUserInfo()
             .then(data => {
@@ -104,7 +105,6 @@ React.useEffect(() => {
             .then(() => {
                 const newCards = cards.filter((c) => c._id !== selectedCardDelete._id);
                 setCards(newCards);
-                // setSelectedCardDelete({});
                 setIsLoading(false);
                 closeAllPopups();
             })
