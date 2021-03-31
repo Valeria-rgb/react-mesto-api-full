@@ -59,11 +59,12 @@ app.post('/signup', signupValidator, createUser);
 app.use('/', auth, usersRouter);
 app.use('/', auth, cardsRouter);
 
-app.use(errorLogger);
-
-app.use(() => {
+app.use((req,res,next) => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
+  next()
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
