@@ -4,12 +4,12 @@ import React from "react";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    // const isOwn = card.owner._id === currentUser._id;
+    const isOwn = card.owner._id === currentUser._id;
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    //
-    // const cardDeleteButtonClassName = (
-    //     `${isOwn ? 'card__trash' : 'card__trash_invisible'}`
-    // );
+
+    const cardDeleteButtonClassName = (
+        `${isOwn ? 'card__trash' : 'card__trash_invisible'}`
+    );
 
     const cardLikeButtonClassName = (
         `card__like ${isLiked ? 'card__like_active' : ''}`
@@ -30,7 +30,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     return (
         <li className="card">
             <img className="card__photo" src={card.link} alt={card.name} onClick={handleCardClick}/>
-            <button className="card__trash" aria-label="trash" onClick={handleDeleteClick}/>
+            <button className={cardDeleteButtonClassName} aria-label="trash" onClick={handleDeleteClick}/>
             <div className="card__info">
                 <h2 className="card__title">{card.name}</h2>
                 <div className="card__likes">
