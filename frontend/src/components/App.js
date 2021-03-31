@@ -87,13 +87,13 @@ React.useEffect(() => {
         setSelectedCard({link: card.link, name: card.name, isOpen: true});
     }
 
-    function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
-
-        myApi.changeLikeCardStatus(card._id, isLiked)
+    function handleAddPlaceSubmit(card) {
+        setIsLoading(true);
+        myApi.addCard(card)
             .then((newCard) => {
-                const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-                setCards(newCards);
+                setIsLoading(false);
+                setCards([newCard, ...cards]);
+                closeAllPopups();
             })
             .catch((err) => console.log(`Упс!: ${err}`));
     }
@@ -107,6 +107,17 @@ React.useEffect(() => {
                 setCards(newCards);
                 setIsLoading(false);
                 closeAllPopups();
+            })
+            .catch((err) => console.log(`Упс!: ${err}`));
+    }
+
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+        myApi.changeLikeCardStatus(card._id, isLiked)
+            .then((newCard) => {
+                const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+                setCards(newCards);
             })
             .catch((err) => console.log(`Упс!: ${err}`));
     }
@@ -128,17 +139,6 @@ React.useEffect(() => {
             .then(() => {
                 setIsLoading(false);
                 setCurrentUser({...currentUser, ...avatar});
-                closeAllPopups();
-            })
-            .catch((err) => console.log(`Упс!: ${err}`));
-    }
-
-    function handleAddPlaceSubmit(card) {
-        setIsLoading(true);
-        myApi.addCard(card)
-            .then((newCard) => {
-                setIsLoading(false);
-                setCards([newCard, ...cards]);
                 closeAllPopups();
             })
             .catch((err) => console.log(`Упс!: ${err}`));
