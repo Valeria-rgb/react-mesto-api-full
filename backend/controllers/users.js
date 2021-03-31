@@ -1,7 +1,9 @@
-const UserModel = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {NODE_ENV, JWT_SECRET} = process.env;
+
+const UserModel = require('../models/user');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
@@ -34,13 +36,13 @@ const getMyInfo = (req, res, next) => {
 };
 
 const getProfile = (req, res, next) => {
-  const {userId} = req.params;
+  const { userId } = req.params;
   UserModel.findById(userId)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь с данным id не найден');
       } else {
-        res.status(200).send({data: user});
+        res.status(200).send({ data: user });
       }
     })
     .catch((err) => {
@@ -53,7 +55,9 @@ const getProfile = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const {email, password, name, about, avatar} = req.body;
+  const {
+    email, password, name, about, avatar,
+  } = req.body;
   UserModel.findOne({
     email,
   })
@@ -86,16 +90,16 @@ const createUser = (req, res, next) => {
 };
 
 const updateProfile = (req, res, next) => {
-  const {name, about} = req.body;
-  UserModel.findByIdAndUpdate(req.user._id, {$set: {name, about}}, {
+  const { name, about } = req.body;
+  UserModel.findByIdAndUpdate(req.user._id, { $set: { name, about } }, {
     runValidators: true,
-    new: true
+    new: true,
   })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь с данным id не найден');
       } else {
-        res.status(200).send({user});
+        res.status(200).send({ user });
       }
     })
     .catch((err) => {
@@ -108,10 +112,10 @@ const updateProfile = (req, res, next) => {
 };
 
 const updateAvatar = (req, res, next) => {
-  const {avatar} = req.body;
-  UserModel.findByIdAndUpdate(req.user._id, {$set: {avatar}}, {
+  const { avatar } = req.body;
+  UserModel.findByIdAndUpdate(req.user._id, { $set: { avatar } }, {
     runValidators: true,
-    new: true
+    new: true,
   })
     .then((user) => {
       if (!user) {
@@ -131,8 +135,8 @@ const updateAvatar = (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const {email, password} = req.body;
-    const user = await UserModel.findOne({email}).select('+password');
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email }).select('+password');
     if (!user) {
       next(new UnauthorizedError('Неправильный почта/пароль'));
     }
@@ -141,11 +145,11 @@ const login = async (req, res, next) => {
       next(new UnauthorizedError('Неправильный почта/пароль'));
     } else {
       const token = jwt.sign(
-        {_id: user._id},
+        { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-        {expiresIn: '7d'},
+        { expiresIn: '7d' },
       );
-      res.send({token});
+      res.send({ token });
     }
   } catch (err) {
     next(err);
@@ -153,5 +157,5 @@ const login = async (req, res, next) => {
 };
 
 module.exports = {
-  getUsers, getProfile, updateProfile, updateAvatar, createUser, login, getMyInfo
+  getUsers, getProfile, updateProfile, updateAvatar, createUser, login, getMyInfo,
 };

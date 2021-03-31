@@ -15,7 +15,7 @@ const postCard = (req, res, next) => {
   CardModel.create({
     name: req.body.name,
     link: req.body.link,
-    owner: req.user._id
+    owner: req.user._id,
   })
     .then((card) => res.status(201).send(card))
     .catch((err) => {
@@ -53,9 +53,9 @@ const putLike = (req, res, next) => {
   })
     .populate(['likes', 'owner'])
     .then((card) => {
-    if (!card) {
-      throw new NotFoundError('Карточка с данным id не найдена');
-    }
+      if (!card) {
+        throw new NotFoundError('Карточка с данным id не найдена');
+      }
       return res.status(200).send(card);
     })
     .catch((err) => {
@@ -93,5 +93,5 @@ const deleteLike = (req, res, next) => {
 };
 
 module.exports = {
-  getCards, postCard, deleteCard, putLike, deleteLike
+  getCards, postCard, deleteCard, putLike, deleteLike,
 };

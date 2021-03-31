@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  getUsers, getProfile, updateProfile, updateAvatar, getMyInfo
+  getUsers, getProfile, updateProfile, updateAvatar, getMyInfo,
 } = require('../controllers/users');
 const { updateProfileValidator, updateAvatarValidator, getUserByIdValidator } = require('../middlewares/validators');
 
@@ -11,4 +11,3 @@ router.patch('/users/me', updateProfileValidator, updateProfile);
 router.patch('/users/me/avatar', updateAvatarValidator, updateAvatar);
 
 module.exports = router;
-

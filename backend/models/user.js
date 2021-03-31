@@ -15,19 +15,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
-    select: false
+    select: false,
   },
   name: {
     type: String,
     default: 'Жак-Ив Кусто',
     minlength: 2,
-    maxlength: 30
+    maxlength: 30,
   },
   about: {
     type: String,
     default: 'Исследователь',
     minlength: 2,
-    maxlength: 30
+    maxlength: 30,
   },
   avatar: {
     type: String,
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
       validator: (url) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/
         .test(url),
       message: (props) => `${props.value} поле 'аватар' должно быть валидным url-адресом!`,
-    }
+    },
   },
 });
 
