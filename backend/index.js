@@ -58,7 +58,7 @@ app.post('/signup', signupValidator, createUser);
 
 app.use('/', auth, usersRouter);
 app.use('/', auth, cardsRouter);
-app.use('*', () => new NotFoundError('Запрашиваемый ресурс не найден'));
+app.use('*', NotFoundError('Запрашиваемый ресурс не найден'));
 
 app.use(errorLogger);
 
