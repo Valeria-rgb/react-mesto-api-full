@@ -135,7 +135,7 @@ React.useEffect(() => {
 
     function handleAddPlaceSubmit(card) {
         setIsLoading(true);
-        myApi.addCard(card, isOwn)
+        myApi.addCard(card)
             .then((newCard) => {
                 setIsLoading(false);
                 setCards([newCard, ...cards]);
