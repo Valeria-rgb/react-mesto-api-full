@@ -29,11 +29,10 @@ const postCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   CardModel.findById(req.params.cardId)
-    .populate('owner')
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
-      } else if (card.owner._id.toString() !== req.user._id) {
+      } else if (card.owner._id.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Нет! Вы не можете удалять карточки других пользователей');
       } else {
         CardModel.findByIdAndDelete(req.params.cardId)
