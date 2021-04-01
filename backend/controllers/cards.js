@@ -6,7 +6,7 @@ const ForbiddenError = require('../errors/forbidden-err');
 
 const getCards = (req, res, next) => {
   CardModel.find({})
-    // .populate('owner')
+    .populate('owner', 'likes')
     .then((cards) => res.status(200).send(cards))
     .catch(next);
 };
@@ -29,10 +29,11 @@ const postCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   CardModel.findById(req.params.cardId)
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
-      } else if (card.owner.toString() !== req.user._id.toString()) {
+      } else if (card.owner._id.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Нет! Вы не можете удалять карточки других пользователей');
       } else {
         CardModel.findByIdAndDelete(req.params.cardId)
@@ -51,7 +52,7 @@ const putLike = (req, res, next) => {
   }, {
     new: true,
   })
-    // .populate(['likes', 'owner'])
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
@@ -76,7 +77,7 @@ const deleteLike = (req, res, next) => {
   }, {
     new: true,
   })
-    // .populate(['likes', 'owner'])
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка с данным id не найдена');
