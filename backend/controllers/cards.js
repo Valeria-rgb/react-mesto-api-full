@@ -15,7 +15,7 @@ const postCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
 
-  CardModel.create({ name, link, owner })
+  CardModel.create({ name, link}, owner )
     .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
