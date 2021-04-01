@@ -98,7 +98,7 @@ React.useEffect(() => {
             .catch((err) => console.log(`Упс!: ${err}`));
     }
 
-    function handleCardDelete(selectedCardDelete) {
+    function handleCardDelete() {
         setIsLoading(true);
 
         myApi.deleteCard(selectedCardDelete._id)
