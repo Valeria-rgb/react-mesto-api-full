@@ -15,7 +15,7 @@ const postCard = (req, res, next) => {
   CardModel.create({
     name: req.body.name,
     link: req.body.link,
-    owner: req.user,
+    owner: req.user._id,
   })
     .then((card) => res.status(201).send(card))
     .catch((err) => {
