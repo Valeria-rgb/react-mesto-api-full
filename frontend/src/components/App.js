@@ -101,9 +101,9 @@ React.useEffect(() => {
     function handleCardDelete(selectedCardDelete) {
         setIsLoading(true);
 
-        myApi.deleteCard(selectedCardDelete)
+        myApi.deleteCard(selectedCardDelete._id)
             .then(() => {
-                const newCards = cards.filter((c) => c._id !== selectedCardDelete._id);
+                const newCards = cards.filter((c) => c !== selectedCardDelete);
                 setCards(newCards);
                 setIsLoading(false);
                 closeAllPopups();
@@ -112,9 +112,9 @@ React.useEffect(() => {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(i => i === currentUser._id);
 
-        myApi.changeLikeCardStatus(card, isLiked)
+        myApi.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
                 const newCards = cards.map((c) => c._id === card._id ? newCard : c);
                 setCards(newCards);
